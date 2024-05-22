@@ -7,17 +7,20 @@ else
   git clone https://github.com/flutter/flutter.git;
 fi
 
+# Listar os arquivos no diretório atual
+ls
+
 # Remover o arquivo flutter_tools.stamp
 rm -f flutter/bin/cache/flutter_tools.stamp
 
 # Modificar o arquivo chrome.dart para desabilitar web security
 CHROME_DART_FILE="flutter/packages/flutter_tools/lib/src/web/chrome.dart"
 
-if grep -q "--disable-web-security" "$CHROME_DART_FILE"; then
-  echo "Web security already disabled in $CHROME_DART_FILE"
-else
-  sed -i '' 's/--disable-extensions/--disable-extensions --disable-web-security/' "$CHROME_DART_FILE"
+if [ -f "$CHROME_DART_FILE" ]; then
+  sed -i 's/--disable-extensions/--disable-extensions --disable-web-security/' "$CHROME_DART_FILE"
   echo "Web security disabled in $CHROME_DART_FILE"
+else
+  echo "File $CHROME_DART_FILE does not exist"
 fi
 
 # Executar comandos Flutter
