@@ -1,6 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+
 void main() {
   runApp(const MyApp());
 }
@@ -48,7 +48,7 @@ class HeaderSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16.0),
-      child:  Column(
+      child: Column(
         children: [
           const Text(
             'Receitas para você',
@@ -59,22 +59,28 @@ class HeaderSection extends StatelessWidget {
             'Encontre as melhores receitas para o seu almoço ou jantar',
             style: TextStyle(fontSize: 16, color: Colors.grey[800]),
           ),
-          ],
+        ],
       ),
     );
   }
 }
 
-
-
 class RecipeGrid extends StatelessWidget {
   const RecipeGrid({super.key});
 
   Future<List<dynamic>> fetchRecipes() async {
-    final response = await http.get(Uri.parse('https://quarkus-yoicvpczla-rj.a.run.app/users/3/feed'));
+    Dio dio = Dio();
+    final response = await dio.get(
+      'https://quarkus-yoicvpczla-rj.a.run.app/users/3/feed',
+      options: Options(
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
+      ),
+    );
 
     if (response.statusCode == 200) {
-      return json.decode(response.body);
+      return response.data;
     } else {
       throw Exception('Failed to load recipes');
     }
