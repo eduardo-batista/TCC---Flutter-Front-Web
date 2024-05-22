@@ -69,21 +69,45 @@ class RecipeGrid extends StatelessWidget {
   const RecipeGrid({super.key});
 
   Future<List<dynamic>> fetchRecipes() async {
-    Dio dio = Dio();
-    final response = await dio.get(
-      'https://quarkus-yoicvpczla-rj.a.run.app/users/3/feed',
-      options: Options(
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-      ),
-    );
-
-    if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      throw Exception('Failed to load recipes');
-    }
+    // Mocking the API response
+    await Future.delayed(const Duration(seconds: 2)); // Simulating network delay
+    return [
+      {
+        "id": 20,
+        "image": "https://www.anamariareceitas.com.br/wp-content/uploads/2022/10/Lasanha-a-bolonhesa.jpg",
+        "name": "Arepas"
+      },
+      {
+        "id": 19,
+        "image": "https://www.anamariareceitas.com.br/wp-content/uploads/2022/10/Lasanha-a-bolonhesa.jpg",
+        "name": "Massaman Curry"
+      },
+      {
+        "id": 22,
+        "image": "https://www.anamariareceitas.com.br/wp-content/uploads/2022/10/Lasanha-a-bolonhesa.jpg",
+        "name": "Chicken Fajitas"
+      },
+      {
+        "id": 23,
+        "image": "https://www.anamariareceitas.com.br/wp-content/uploads/2022/10/Lasanha-a-bolonhesa.jpg",
+        "name": "Tiramisù"
+      },
+      {
+        "id": 24,
+        "image": "https://www.anamariareceitas.com.br/wp-content/uploads/2022/10/Lasanha-a-bolonhesa.jpg",
+        "name": "Pork Belly Buns"
+      },
+      {
+        "id": 25,
+        "image": "https://www.anamariareceitas.com.br/wp-content/uploads/2022/10/Lasanha-a-bolonhesa.jpg",
+        "name": "Caprese Salad"
+      },
+      {
+        "id": 26,
+        "image": "https://www.anamariareceitas.com.br/wp-content/uploads/2022/10/Lasanha-a-bolonhesa.jpg",
+        "name": "Chicken Milanese"
+      }
+    ];
   }
 
   @override
